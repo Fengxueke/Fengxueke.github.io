@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Tue Jul 26 2016 21:09:15 GMT+0800">
-        <meta property="article:modified_time" content="Mon Sep 24 2018 16:05:24 GMT+0800">
+        <meta property="article:modified_time" content="Mon Sep 24 2018 16:19:07 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "http://fengxueke.github.io/posts/232594d3/index.html",
     "headline": "Debian：本地用户登陆vsftpd出现530 Login incorrect.",
     "datePublished": "Tue Jul 26 2016 21:09:15 GMT+0800",
-    "dateModified": "Mon Sep 24 2018 16:05:24 GMT+0800",
+    "dateModified": "Mon Sep 24 2018 16:19:07 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "fengxueke",
@@ -491,13 +491,13 @@
         <p>今天为了方便传送文件，于是在debian8上搭建一个ftp服务器，但在登陆时出现530 Login incorrect。 搭建过程的简单介绍： 新建本地用户文件夹：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/www/ftp_user/</span><br></pre></td></tr></table></figure>
 <p>新建用户：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd ftp\_user -s /sbin/nologin -d /var/www/ftp\_user/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd ftp_user -s /sbin/nologin -d /var/www/ftp_user/</span><br></pre></td></tr></table></figure>
 <p>修改用户文件夹所有者为ftp_user：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R ftp\_user:ftp\_user /var/www/ftp_user</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R ftp_user:ftp_user /var/www/ftp_user</span><br></pre></td></tr></table></figure>
 <p>vsftpd安装：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install vsftpd -y</span><br></pre></td></tr></table></figure>
 <p>vsftpd配置文件修改后的有效项目：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">listen=NO</span><br><span class="line">listen_ipv6=YES</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">local_enable=YES</span><br><span class="line">write_enable=YES</span><br><span class="line">local_umask=022</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">use_localtime=YES</span><br><span class="line">connect\_from\_port_20=YES</span><br><span class="line">chroot\_local\_user=NO</span><br><span class="line">pam\_service\_name=vsftpd</span><br><span class="line">rsa\_cert\_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</span><br><span class="line">rsa\_private\_key_file=/etc/ssl/private/ssl-cert-snakeoil.key</span><br><span class="line">ssl_enable=NO</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">listen=NO</span><br><span class="line">listen_ipv6=YES</span><br><span class="line">anonymous_enable=NO</span><br><span class="line">local_enable=YES</span><br><span class="line">write_enable=YES</span><br><span class="line">local_umask=022</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">use_localtime=YES</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">chroot_local_user=NO</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem</span><br><span class="line">rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key</span><br><span class="line">ssl_enable=NO</span><br></pre></td></tr></table></figure>
 <p>好了；现在尝试登陆却有 530 Login incorrect. 错误； 解决方法是修改/etc/pam.d/vsftpd文件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/pam.d/vsftpd</span><br></pre></td></tr></table></figure>
 <p>把auth   required        pam_shells.so这一行注释掉：</p>
