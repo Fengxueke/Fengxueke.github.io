@@ -86,6 +86,11 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
 
     
 
@@ -244,7 +249,7 @@
 
     
         <meta property="article:published_time" content="Sun Oct 16 2016 23:31:12 GMT+0800">
-        <meta property="article:modified_time" content="Mon Sep 24 2018 16:19:11 GMT+0800">
+        <meta property="article:modified_time" content="Mon Sep 24 2018 17:17:47 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +272,7 @@
     "mainEntityOfPage": "http://fengxueke.github.io/posts/f9be5b4d/index.html",
     "headline": "[Android]制作底部导航栏，使用Iconfont，并添加滑动事件",
     "datePublished": "Sun Oct 16 2016 23:31:12 GMT+0800",
-    "dateModified": "Mon Sep 24 2018 16:19:11 GMT+0800",
+    "dateModified": "Mon Sep 24 2018 17:17:47 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "fengxueke",
@@ -493,17 +498,325 @@
 <p>这次用到的一些知识有： Fragment、ViewPager、RadioGroup、FragmentPagerAdapter、android.support.v4包。 app工程文件结构： </p>
 <p><img src="/image/2016/10/tab_menu_use_iconfont文件结构.png" alt="tab_menu_use_iconfont文件结构"> </p>
 <p>除了新建的类，还有导入的iconfont字体文件，android-support-v4包，以及选中按钮颜色tab_oncheck_color.xml、导航栏背景tab_checked_bg.xml。 先写布局文件：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"https://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"https://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">"com.example.buttom_tab.MainActivity"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">android.support.v4.view.ViewPager</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/viewPager"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"0dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"bottom"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">"1"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- android:text=http://www.isflee.com/wordpress/wp-admin/plugins.php"@string/icon_home" --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- iconfont字体，放进包中的assets文件夹后再在string.xml中声明 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">RadioGroup</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/rg_tab"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"fill_parent"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:background</span>=<span class="string">"#CCC"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/rb_one"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"@drawable/tab_checked_bg"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:button</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:checked</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:gravity</span>=<span class="string">"center_horizontal"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingBottom</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingTop</span>=<span class="string">"10dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">"@string/icon_home"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textColor</span>=<span class="string">"@color/tab_oncheck_color"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textSize</span>=<span class="string">"28sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/rb_two"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"@drawable/tab_checked_bg"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:button</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:checked</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:gravity</span>=<span class="string">"center_horizontal"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingBottom</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingTop</span>=<span class="string">"10dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">"@string/icon_more"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textColor</span>=<span class="string">"@color/tab_oncheck_color"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textSize</span>=<span class="string">"30sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/rb_three"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"@drawable/tab_checked_bg"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:button</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:checked</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:gravity</span>=<span class="string">"center_horizontal"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingBottom</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingTop</span>=<span class="string">"10dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">"@string/icon_chat"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textColor</span>=<span class="string">"@color/tab_oncheck_color"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textSize</span>=<span class="string">"30sp"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">RadioButton</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:id</span>=<span class="string">"@+id/rb_four"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_weight</span>=<span class="string">"1"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"@drawable/tab_checked_bg"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:button</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:checked</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:gravity</span>=<span class="string">"center_horizontal"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingBottom</span>=<span class="string">"8dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:paddingTop</span>=<span class="string">"10dp"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:text</span>=<span class="string">"@string/icon_user"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textColor</span>=<span class="string">"@color/tab_oncheck_color"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:textSize</span>=<span class="string">"30sp"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">RadioGroup</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="xml">&lt;LinearLayout xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    xmlns:tools=&quot;https://schemas.android.com/tools&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot;
+    tools:context=&quot;com.example.buttom_tab.MainActivity&quot; &gt;
+
+    &lt;android.support.v4.view.ViewPager
+        android:id=&quot;@+id/viewPager&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;0dp&quot;
+        android:layout_gravity=&quot;bottom&quot;
+        android:layout_weight=&quot;1&quot; /&gt;
+    &lt;!-- android:text=http://www.isflee.com/wordpress/wp-admin/plugins.php&quot;@string/icon_home&quot; --&gt;
+    &lt;!-- iconfont字体，放进包中的assets文件夹后再在string.xml中声明 --&gt;
+    &lt;RadioGroup
+        android:id=&quot;@+id/rg_tab&quot;
+        android:layout_width=&quot;fill_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:background=&quot;#CCC&quot;
+        android:orientation=&quot;horizontal&quot; &gt;
+
+        &lt;RadioButton
+            android:id=&quot;@+id/rb_one&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_weight=&quot;1&quot;
+            android:background=&quot;@drawable/tab_checked_bg&quot;
+            android:button=&quot;@null&quot;
+            android:checked=&quot;true&quot;
+            android:gravity=&quot;center_horizontal&quot;
+            android:paddingBottom=&quot;8dp&quot;
+            android:paddingTop=&quot;10dp&quot;
+            android:text=&quot;@string/icon_home&quot;
+            android:textColor=&quot;@color/tab_oncheck_color&quot;
+            android:textSize=&quot;28sp&quot; /&gt;
+
+        &lt;RadioButton
+            android:id=&quot;@+id/rb_two&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_weight=&quot;1&quot;
+            android:background=&quot;@drawable/tab_checked_bg&quot;
+            android:button=&quot;@null&quot;
+            android:checked=&quot;false&quot;
+            android:gravity=&quot;center_horizontal&quot;
+            android:paddingBottom=&quot;8dp&quot;
+            android:paddingTop=&quot;10dp&quot;
+            android:text=&quot;@string/icon_more&quot;
+            android:textColor=&quot;@color/tab_oncheck_color&quot;
+            android:textSize=&quot;30sp&quot; /&gt;
+
+        &lt;RadioButton
+            android:id=&quot;@+id/rb_three&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_weight=&quot;1&quot;
+            android:background=&quot;@drawable/tab_checked_bg&quot;
+            android:button=&quot;@null&quot;
+            android:checked=&quot;false&quot;
+            android:gravity=&quot;center_horizontal&quot;
+            android:paddingBottom=&quot;8dp&quot;
+            android:paddingTop=&quot;10dp&quot;
+            android:text=&quot;@string/icon_chat&quot;
+            android:textColor=&quot;@color/tab_oncheck_color&quot;
+            android:textSize=&quot;30sp&quot; /&gt;
+
+        &lt;RadioButton
+            android:id=&quot;@+id/rb_four&quot;
+            android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_weight=&quot;1&quot;
+            android:background=&quot;@drawable/tab_checked_bg&quot;
+            android:button=&quot;@null&quot;
+            android:checked=&quot;false&quot;
+            android:gravity=&quot;center_horizontal&quot;
+            android:paddingBottom=&quot;8dp&quot;
+            android:paddingTop=&quot;10dp&quot;
+            android:text=&quot;@string/icon_user&quot;
+            android:textColor=&quot;@color/tab_oncheck_color&quot;
+            android:textSize=&quot;30sp&quot; /&gt;
+    &lt;/RadioGroup&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
 <p>其中icon_home是Iconfont字体，要到官网上下载，在下载的压缩包中，打开demo.html，我们要用到其中的字体代码，并添加到string.xml中： </p>
 <p><img src="/image/2016/10/android使用iconfont-300x186.png" alt="android使用iconfont"> </p>
 <p>在RadioGroup中用了四个RadioButton，所以对应的Fragment也将有四个，以下是其中一个，其余相仿：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"https://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span> &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/tab_page_one"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"第一个页面"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textAppearance</span>=<span class="string">"?android:attr/textAppearanceLarge"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;LinearLayout xmlns:android=&quot;https://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:orientation=&quot;vertical&quot; &gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/tab_page_one&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;第一个页面&quot;
+        android:textAppearance=&quot;?android:attr/textAppearanceLarge&quot; /&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
 <p>对应的类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tab_menu_use_iconfont;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.Fragment;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.view.LayoutInflater;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.view.ViewGroup;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fragment_tab_one</span> <span class="keyword">extends</span> <span class="title">Fragment</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		View view = inflater.inflate(R.layout.fragment_tab_one, <span class="keyword">null</span>);</span><br><span class="line">		<span class="keyword">return</span> view;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package com.example.tab_menu_use_iconfont;
+
+import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class Fragment_tab_one extends Fragment {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        View view = inflater.inflate(R.layout.fragment_tab_one, null);
+        return view;
+    }
+
+}
+</code></pre>
 <p>添加一个FragmentPagerAdapter的类，因为要用到ViewPager。代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tab_menu_use_iconfont;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.Fragment;</span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.FragmentManager;</span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.FragmentPagerAdapter;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fragment_tab_pager_adapter</span> <span class="keyword">extends</span> <span class="title">FragmentPagerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> PAGER_COUNT = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Fragment_tab_one fg_page_one = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> Fragment_tab_two fg_page_two = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> Fragment_tab_three fg_page_three = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> Fragment_tab_four fg_page_four = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Fragment_tab_pager_adapter</span><span class="params">(FragmentManager fm)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(fm);</span><br><span class="line">		fg_page_one = <span class="keyword">new</span> Fragment_tab_one();</span><br><span class="line">		fg_page_two = <span class="keyword">new</span> Fragment_tab_two();</span><br><span class="line">		fg_page_four = <span class="keyword">new</span> Fragment_tab_four();</span><br><span class="line">		fg_page_three = <span class="keyword">new</span> Fragment_tab_three();		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//获取给定位置的Fragment(将顺序页面和Fragment关联起来，并将其返回)</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Fragment <span class="title">getItem</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">		Fragment fragment = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">switch</span> (position) &#123;</span><br><span class="line">		<span class="keyword">case</span> MainActivity.PAGE_ONE:</span><br><span class="line">			fragment = fg_page_one;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> MainActivity.PAGE_TWO:</span><br><span class="line">			fragment = fg_page_two;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> MainActivity.PAGE_THREE:</span><br><span class="line">			fragment = fg_page_three;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> MainActivity.PAGE_FOUR:</span><br><span class="line">			fragment = fg_page_four;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> fragment;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> PAGER_COUNT;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">instantiateItem</span><span class="params">(View container, <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">super</span>.instantiateItem(container, position);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroyItem</span><span class="params">(View container, <span class="keyword">int</span> position, Object object)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">super</span>.destroyItem(container, position, object);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package com.example.tab_menu_use_iconfont;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.view.View;
+
+public class Fragment_tab_pager_adapter extends FragmentPagerAdapter {
+
+    private final int PAGER_COUNT = 4;
+
+    private Fragment_tab_one fg_page_one = null;
+    private Fragment_tab_two fg_page_two = null;
+    private Fragment_tab_three fg_page_three = null;
+    private Fragment_tab_four fg_page_four = null;
+
+    public Fragment_tab_pager_adapter(FragmentManager fm) {
+        super(fm);
+        fg_page_one = new Fragment_tab_one();
+        fg_page_two = new Fragment_tab_two();
+        fg_page_four = new Fragment_tab_four();
+        fg_page_three = new Fragment_tab_three();        
+    }
+    //获取给定位置的Fragment(将顺序页面和Fragment关联起来，并将其返回)
+    @Override
+    public Fragment getItem(int position) {
+        Fragment fragment = null;
+        switch (position) {
+        case MainActivity.PAGE_ONE:
+            fragment = fg_page_one;
+            break;
+        case MainActivity.PAGE_TWO:
+            fragment = fg_page_two;
+            break;
+        case MainActivity.PAGE_THREE:
+            fragment = fg_page_three;
+            break;
+        case MainActivity.PAGE_FOUR:
+            fragment = fg_page_four;
+            break;
+        }
+        return fragment;
+    }
+
+    @Override
+    public int getCount() {
+        return PAGER_COUNT;
+    }
+
+    @SuppressWarnings(&quot;deprecation&quot;)
+    @Override
+    public Object instantiateItem(View container, int position) {
+        // TODO Auto-generated method stub
+        return super.instantiateItem(container, position);
+    }
+
+    @SuppressWarnings(&quot;deprecation&quot;)
+    @Override
+    public void destroyItem(View container, int position, Object object) {
+        // TODO Auto-generated method stub
+        super.destroyItem(container, position, object);
+    }
+
+}
+</code></pre>
 <p>在MainActivity中，我们要继承FragmentActivity；实现滑动事件以及点击事件。要注意的是所继承的Fragment、FragmentActivity都来自android.support.v4.app这个包，ViewPager也是。 MainActivity.java如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.tab_menu_use_iconfont;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.graphics.Typeface;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.support.v4.app.FragmentActivity;</span><br><span class="line"><span class="keyword">import</span> android.support.v4.view.ViewPager;</span><br><span class="line"><span class="keyword">import</span> android.view.Menu;</span><br><span class="line"><span class="keyword">import</span> android.view.MenuItem;</span><br><span class="line"><span class="keyword">import</span> android.widget.RadioButton;</span><br><span class="line"><span class="keyword">import</span> android.widget.RadioGroup;</span><br><span class="line"><span class="keyword">import</span> android.widget.RadioGroup.OnCheckedChangeListener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">FragmentActivity</span> <span class="keyword">implements</span> <span class="title">ViewPager</span>.<span class="title">OnPageChangeListener</span>, <span class="title">OnCheckedChangeListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> RadioGroup rg_tab;</span><br><span class="line">	<span class="keyword">private</span> RadioButton rb_one, rb_two, rb_three, rb_four;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> ViewPager viewPager;</span><br><span class="line">	<span class="keyword">private</span> Fragment_tab_pager_adapter fg_pager_adapter;</span><br><span class="line">	<span class="comment">// 页面的常量</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAGE_ONE = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAGE_TWO = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAGE_THREE = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PAGE_FOUR = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">		setContentView(R.layout.activity_main);</span><br><span class="line">		rb_one = (RadioButton) findViewById(R.id.rb_one);</span><br><span class="line">		rb_two = (RadioButton) findViewById(R.id.rb_two);</span><br><span class="line">		rb_three = (RadioButton) findViewById(R.id.rb_three);</span><br><span class="line">		rb_four = (RadioButton) findViewById(R.id.rb_four);		</span><br><span class="line">		<span class="comment">//声明要用到的IconFont字体，并将RadioButton的字体设置为IconFont的</span></span><br><span class="line">		Typeface iconfont = Typeface.createFromAsset(getAssets(), <span class="string">"iconfont/iconfont.ttf"</span>);</span><br><span class="line">		rb_one.setTypeface(iconfont);</span><br><span class="line">		rb_two.setTypeface(iconfont);</span><br><span class="line">		rb_three.setTypeface(iconfont);</span><br><span class="line">		rb_four.setTypeface(iconfont);</span><br><span class="line">		rb_one.setChecked(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">		rg_tab = (RadioGroup) findViewById(R.id.rg_tab);</span><br><span class="line">		rg_tab.setOnCheckedChangeListener(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">		fg_pager_adapter = <span class="keyword">new</span> Fragment_tab_pager_adapter(getSupportFragmentManager());</span><br><span class="line"></span><br><span class="line">		viewPager = (ViewPager) findViewById(R.id.viewPager);</span><br><span class="line">		viewPager.setAdapter(fg_pager_adapter);</span><br><span class="line">		viewPager.setOnPageChangeListener(<span class="keyword">this</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span></span><br><span class="line">		getMenuInflater().inflate(R.menu.main, menu);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// Handle action bar item clicks here. The action bar will</span></span><br><span class="line">		<span class="comment">// automatically handle clicks on the Home/Up button, so long</span></span><br><span class="line">		<span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></span><br><span class="line">		<span class="keyword">int</span> id = item.getItemId();</span><br><span class="line">		<span class="keyword">if</span> (id == R.id.action_settings) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrollStateChanged</span><span class="params">(<span class="keyword">int</span> pager)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//pager == 2表示滑动已经完毕，并对应到当前导航栏按钮</span></span><br><span class="line">		<span class="keyword">if</span> (pager == <span class="number">2</span>) &#123;</span><br><span class="line">			<span class="keyword">switch</span> (viewPager.getCurrentItem()) &#123;</span><br><span class="line">			<span class="keyword">case</span> PAGE_ONE:</span><br><span class="line">				rb_one.setChecked(<span class="keyword">true</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> PAGE_TWO:</span><br><span class="line">				rb_two.setChecked(<span class="keyword">true</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> PAGE_THREE:</span><br><span class="line">				rb_three.setChecked(<span class="keyword">true</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">case</span> PAGE_FOUR:</span><br><span class="line">				rb_four.setChecked(<span class="keyword">true</span>);</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageScrolled</span><span class="params">(<span class="keyword">int</span> arg0, <span class="keyword">float</span> arg1, <span class="keyword">int</span> arg2)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPageSelected</span><span class="params">(<span class="keyword">int</span> arg0)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCheckedChanged</span><span class="params">(RadioGroup group, <span class="keyword">int</span> checkedId)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">switch</span> (checkedId) &#123;</span><br><span class="line">		<span class="keyword">case</span> R.id.rb_one:</span><br><span class="line">			viewPager.setCurrentItem(PAGE_ONE);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> R.id.rb_two:</span><br><span class="line">			viewPager.setCurrentItem(PAGE_TWO);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> R.id.rb_three:</span><br><span class="line">			viewPager.setCurrentItem(PAGE_THREE);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> R.id.rb_four:</span><br><span class="line">			viewPager.setCurrentItem(PAGE_FOUR);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package com.example.tab_menu_use_iconfont;
+
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+
+public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, OnCheckedChangeListener {
+
+    private RadioGroup rg_tab;
+    private RadioButton rb_one, rb_two, rb_three, rb_four;
+
+    private ViewPager viewPager;
+    private Fragment_tab_pager_adapter fg_pager_adapter;
+    // 页面的常量
+    public static final int PAGE_ONE = 0;
+    public static final int PAGE_TWO = 1;
+    public static final int PAGE_THREE = 2;
+    public static final int PAGE_FOUR = 3;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        rb_one = (RadioButton) findViewById(R.id.rb_one);
+        rb_two = (RadioButton) findViewById(R.id.rb_two);
+        rb_three = (RadioButton) findViewById(R.id.rb_three);
+        rb_four = (RadioButton) findViewById(R.id.rb_four);        
+        //声明要用到的IconFont字体，并将RadioButton的字体设置为IconFont的
+        Typeface iconfont = Typeface.createFromAsset(getAssets(), &quot;iconfont/iconfont.ttf&quot;);
+        rb_one.setTypeface(iconfont);
+        rb_two.setTypeface(iconfont);
+        rb_three.setTypeface(iconfont);
+        rb_four.setTypeface(iconfont);
+        rb_one.setChecked(true);
+
+        rg_tab = (RadioGroup) findViewById(R.id.rg_tab);
+        rg_tab.setOnCheckedChangeListener(this);
+
+        fg_pager_adapter = new Fragment_tab_pager_adapter(getSupportFragmentManager());
+
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(fg_pager_adapter);
+        viewPager.setOnPageChangeListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int pager) {
+        //pager == 2表示滑动已经完毕，并对应到当前导航栏按钮
+        if (pager == 2) {
+            switch (viewPager.getCurrentItem()) {
+            case PAGE_ONE:
+                rb_one.setChecked(true);
+                break;
+            case PAGE_TWO:
+                rb_two.setChecked(true);
+                break;
+            case PAGE_THREE:
+                rb_three.setChecked(true);
+                break;
+            case PAGE_FOUR:
+                rb_four.setChecked(true);
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    public void onPageScrolled(int arg0, float arg1, int arg2) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onPageSelected(int arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+        case R.id.rb_one:
+            viewPager.setCurrentItem(PAGE_ONE);
+            break;
+        case R.id.rb_two:
+            viewPager.setCurrentItem(PAGE_TWO);
+            break;
+        case R.id.rb_three:
+            viewPager.setCurrentItem(PAGE_THREE);
+            break;
+        case R.id.rb_four:
+            viewPager.setCurrentItem(PAGE_FOUR);
+            break;
+        }
+
+    }
+}
+</code></pre>
 <p>整个工程文件下载：<a href="http://www.isflee.com/owncloud/index.php/s/UpkzTogcWQ8EJaU" target="_blank" rel="noopener">tab_menu_use_iconfont.zip</a> (Bo主用的Eclipse+ADT的开发环境，这个压缩包是在Eclipse中正常导出的，文本编码是GBK)</p>
 
         
@@ -867,6 +1180,12 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- Import prettify js  -->
 
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
 
 
 <!-- Window Load -->
@@ -877,6 +1196,13 @@ It will not impact the appearance and can give developers a lot of support :)
         $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
     });
 
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
     
     
 </script>

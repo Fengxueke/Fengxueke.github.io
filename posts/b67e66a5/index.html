@@ -86,6 +86,11 @@
         <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
 
         
+            
+                <style id="prettify_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_css","/css/prettify.min.css?zp8STOU9v89XWFEnN+6YmQ==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+                <style id="prettify_theme"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("prettify_theme","/css/prettify/github-v2.min.css?AfzKxt++K+/lhZBlSjnxwg==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
+            
+        
 
     
 
@@ -244,7 +249,7 @@
 
     
         <meta property="article:published_time" content="Fri Aug 19 2016 15:29:52 GMT+0800">
-        <meta property="article:modified_time" content="Mon Sep 24 2018 16:19:09 GMT+0800">
+        <meta property="article:modified_time" content="Mon Sep 24 2018 17:17:39 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +272,7 @@
     "mainEntityOfPage": "http://fengxueke.github.io/posts/b67e66a5/index.html",
     "headline": "[Android]通过Intent启动另一个一个Activity",
     "datePublished": "Fri Aug 19 2016 15:29:52 GMT+0800",
-    "dateModified": "Mon Sep 24 2018 16:19:09 GMT+0800",
+    "dateModified": "Mon Sep 24 2018 17:17:39 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "fengxueke",
@@ -498,11 +503,20 @@
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
         <p>一、调用setClass()方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setClass(MainActivity.<span class="keyword">this</span>, Activity_second.class);</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">Intent intent = new Intent();
+intent.setClass(MainActivity.this, Activity_second.class);
+startActivity(intent);
+</code></pre>
 <p>二、通过设置组件setComponent()，也称为显式Intent：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">intent.setComponent(<span class="keyword">new</span> ComponentName(<span class="string">"com.example.android_intent_1"</span>, <span class="string">"com.example.android_intent_1.Activity_second"</span>));</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">Intent intent = new Intent();
+intent.setComponent(new ComponentName(&quot;com.example.android_intent_1&quot;, &quot;com.example.android_intent_1.Activity_second&quot;));
+startActivity(intent);
+</code></pre>
 <p>三、隐式Intent：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"com.example.android_intent_1.intent.action.Activity_second"</span>); </span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">Intent intent = new Intent(&quot;com.example.android_intent_1.intent.action.Activity_second&quot;); 
+startActivity(intent);
+</code></pre>
+
         
     
 
@@ -864,6 +878,12 @@ It will not impact the appearance and can give developers a lot of support :)
 
 <!-- Import prettify js  -->
 
+    
+        
+            <script>lsloader.load("prettify_js","/js/prettify.min.js?WN07fivHQSMKWy7BmHBB6w==", true)</script>
+        
+    
+
 
 
 <!-- Window Load -->
@@ -874,6 +894,13 @@ It will not impact the appearance and can give developers a lot of support :)
         $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
     });
 
+    
+        
+            $(function() {
+                $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+                prettyPrint();
+                })
+        
     
     
 </script>
