@@ -244,7 +244,7 @@
 
     
         <meta property="article:published_time" content="Sun Oct 16 2016 23:31:12 GMT+0800">
-        <meta property="article:modified_time" content="Mon Sep 24 2018 11:02:26 GMT+0800">
+        <meta property="article:modified_time" content="Mon Sep 24 2018 11:16:37 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -267,7 +267,7 @@
     "mainEntityOfPage": "http://fengxueke.github.io/posts/f9be5b4d/index.html",
     "headline": "[Android]制作底部导航栏，使用Iconfont，并添加滑动事件",
     "datePublished": "Sun Oct 16 2016 23:31:12 GMT+0800",
-    "dateModified": "Mon Sep 24 2018 11:02:26 GMT+0800",
+    "dateModified": "Mon Sep 24 2018 11:16:37 GMT+0800",
     "author": {
         "@type": "Person",
         "name": "fengxueke",
@@ -488,10 +488,14 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p>因为要赶一个项目，android的学习不得不加快进度了。 现在导航栏有许多种，不过先从基本的开始，以下是效果图： <img src="http://www.isflee.com/wordpress/wp-content/uploads/2016/10/tab_menu_use_iconfont_gif.gif" alt="tab_menu_use_iconfont_gif"> 这次用到的一些知识有： Fragment、ViewPager、RadioGroup、FragmentPagerAdapter、android.support.v4包。 app工程文件结构： <img src="http://www.isflee.com/wordpress/wp-content/uploads/2016/10/tab_menu_use_iconfont文件结构-120x300.png" alt="tab_menu_use_iconfont文件结构"> 除了新建的类，还有导入的iconfont字体文件，android-support-v4包，以及选中按钮颜色tab_oncheck_color.xml、导航栏背景tab_checked_bg.xml。 先写布局文件：</p>
+        <p>因为要赶一个项目，android的学习不得不加快进度了。 现在导航栏有许多种，不过先从基本的开始，以下是效果图： </p>
+<p><img src="/image/2016/10/tab_menu_use_iconfont_gif.gif" alt="tab_menu_use_iconfont_gif"> </p>
+<p>这次用到的一些知识有： Fragment、ViewPager、RadioGroup、FragmentPagerAdapter、android.support.v4包。 app工程文件结构： </p>
+<p><img src="/image/2016/10/tab_menu_use_iconfont文件结构-120x300.png" alt="tab_menu_use_iconfont文件结构"> </p>
+<p>除了新建的类，还有导入的iconfont字体文件，android-support-v4包，以及选中按钮颜色tab_oncheck_color.xml、导航栏背景tab_checked_bg.xml。 先写布局文件：</p>
 <linearlayout xmlns:android="https://schemas.android.com/apk/res/android" xmlns:tools="https://schemas.android.com/tools" android:layout\_width="match\_parent" android:layout\_height="match\_parent" android:orientation="vertical" tools:context="com.example.buttom_tab.MainActivity"><br><br>    &lt;android.support.v4.view.ViewPager<br>        android:id=”@+id/viewPager”<br>        android:layout_width=”match_parent”<br>        android:layout_height=”0dp”<br>        android:layout_gravity=”bottom”<br>        android:layout_weight=”1” /&gt;<br>    &lt;!-- android:text=<a href="http://www.isflee.com/wordpress/wp-admin/plugins.php&quot;@string/icon_home&quot;" target="_blank" rel="noopener">http://www.isflee.com/wordpress/wp-admin/plugins.php&quot;@string/icon_home&quot;</a> –&gt;<br>    &lt;!-- iconfont字体，放进包中的assets文件夹后再在string.xml中声明 –&gt;<br>    <radiogroup android:id="@+id/rg_tab" android:layout\_width="fill\_parent" android:layout\_height="wrap\_content" android:background="#CCC" android:orientation="horizontal"><br><br>        <radiobutton android:id="@+id/rb_one" android:layout\_width="wrap\_content" android:layout\_height="wrap\_content" android:layout_weight="1" android:background="@drawable/tab\_checked\_bg" android:button="@null" android:checked="true" android:gravity="center_horizontal" android:paddingbottom="8dp" android:paddingtop="10dp" android:text="@string/icon_home" android:textcolor="@color/tab\_oncheck\_color" android:textsize="28sp"><br><br>        <radiobutton android:id="@+id/rb_two" android:layout\_width="wrap\_content" android:layout\_height="wrap\_content" android:layout_weight="1" android:background="@drawable/tab\_checked\_bg" android:button="@null" android:checked="false" android:gravity="center_horizontal" android:paddingbottom="8dp" android:paddingtop="10dp" android:text="@string/icon_more" android:textcolor="@color/tab\_oncheck\_color" android:textsize="30sp"><br><br>        <radiobutton android:id="@+id/rb_three" android:layout\_width="wrap\_content" android:layout\_height="wrap\_content" android:layout_weight="1" android:background="@drawable/tab\_checked\_bg" android:button="@null" android:checked="false" android:gravity="center_horizontal" android:paddingbottom="8dp" android:paddingtop="10dp" android:text="@string/icon_chat" android:textcolor="@color/tab\_oncheck\_color" android:textsize="30sp"><br><br>        <radiobutton android:id="@+id/rb_four" android:layout\_width="wrap\_content" android:layout\_height="wrap\_content" android:layout_weight="1" android:background="@drawable/tab\_checked\_bg" android:button="@null" android:checked="false" android:gravity="center_horizontal" android:paddingbottom="8dp" android:paddingtop="10dp" android:text="@string/icon_user" android:textcolor="@color/tab\_oncheck\_color" android:textsize="30sp"><br>    </radiobutton></radiobutton></radiobutton></radiobutton></radiogroup><br><br></linearlayout>
 
-<p>其中icon_home是Iconfont字体，要到官网上下载，在下载的压缩包中，打开demo.html，我们要用到其中的字体代码，并添加到string.xml中： <img src="http://www.isflee.com/wordpress/wp-content/uploads/2016/10/android使用iconfont-300x186.png" alt="android使用iconfont"> 在RadioGroup中用了四个RadioButton，所以对应的Fragment也将有四个，以下是其中一个，其余相仿：</p>
+<p>其中icon_home是Iconfont字体，要到官网上下载，在下载的压缩包中，打开demo.html，我们要用到其中的字体代码，并添加到string.xml中： <img src="/image/2016/10/android使用iconfont-300x186.png" alt="android使用iconfont"> 在RadioGroup中用了四个RadioButton，所以对应的Fragment也将有四个，以下是其中一个，其余相仿：</p>
 <p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
 <linearlayout xmlns:android="https://schemas.android.com/apk/res/android" android:layout\_width="match\_parent" android:layout\_height="match\_parent" android:orientation="vertical"><br><br>    <textview android:id="@+id/tab\_page\_one" android:layout\_width="wrap\_content" android:layout\_height="wrap\_content" android:text="第一个页面" android:textappearance="?android:attr/textAppearanceLarge"><br><br></textview></linearlayout>
 
